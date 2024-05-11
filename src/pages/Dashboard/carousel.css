@@ -1,0 +1,20 @@
+.carousel {
+    width: fit-content;
+    position: relative;
+    animation: slide 30s linear infinite;
+    overflow: hidden;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes slide {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: -100%;
+    }
+}
