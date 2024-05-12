@@ -35,9 +35,9 @@ export default function Albums() {
     return (
         <>
             <NavBar auth />
-            <main className='h-screen w-full'>
-                <div id="content" className="flex flex-col justify-center m-20" >
-                    <div id="info" className='flex flex-col justify-start items-start gap-8'>
+            <main className='h-fit w-full'>
+                <div id="content" className="flex flex-col justify-center m-20 gap-4" >
+                    <div id="info" className='flex flex-col justify-start items-start gap-4'>
                         <h1 className="text-white font-bold text-4xl text-center sm:text-left">Meus Discos</h1>
                         <div id="infoCards" className='flex flex-row gap-4'>
                             <InfoCard icon={file_video} title='Total de Albums' info={`${albums.length}`} />
@@ -46,7 +46,7 @@ export default function Albums() {
                     </div>
 
                     <div id="cards" className=" max-w-screen-lg w-full overflow-hidden">
-                        <div id="albums" className="flex flex-wrap mt-8 gap-4">
+                        <div id="albums" className="flex flex-wrap flexmt-8 gap-4">
                             {(albums.length) ?
                                 albums?.map((album, i) => (
                                     <Card key={i} name={album.name || ''} price={album.value || 0} backgroundImage={album.imageUrl || ''} />

@@ -5,7 +5,7 @@ import Button from './Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { useAuth } from '@/hooks/UseAuth';
 import { useLocation } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Wallet } from "@/model/Wallet";
 
 interface Props {
@@ -16,14 +16,17 @@ export default function NavBar({ auth }: Props) {
     const { name, token, logout } = useAuth();
     const [wallet, setWallet] = useState<Wallet>()
 
-    const getNav = () => {
+    useEffect(() => {
         if (auth) {
-
             user_api.defaults.headers.common.Authorization = token;
             user_api.get('/wallet').then((result) => {
                 setWallet(result.data);
             })
+        }
+    }, [])
 
+    const getNav = () => {
+        if (auth) {
             return (
                 <>
                     <a className='text-white text-lg sm:text-base hover:font-bold' href='/albums'>

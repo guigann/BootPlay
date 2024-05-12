@@ -10,10 +10,14 @@ import toast from 'react-hot-toast'
 import './carousel.css'
 import Modal from '@/components/Modal'
 import { useAuth } from '@/hooks/UseAuth'
+import { Album } from '@/model/Album'
 
 export default function Dashboard() {
     const { token, id, email, password } = useAuth();
+
     const [albums, setAlbums] = useState<AlbumModel[]>([]);
+    const [myAlbums, setMyAlbums] = useState<Album[]>([]);
+
     const [search, setSearch] = useState<string>();
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -23,6 +27,17 @@ export default function Dashboard() {
         integration_api.defaults.headers.common.Authorization = token;
         integration_api.get('/albums/all?searchText=Rock').then((result) => {
             setAlbums(result.data);
+            toast.dismiss(toastId);
+            console.log(result.data);
+        })
+    }, [])
+
+    useEffect(() => {
+        const toastId = toast.loading("Carregando...");
+
+        integration_api.defaults.headers.common.Authorization = token;
+        integration_api.get('/albums/my-collection').then((result) => {
+            setMyAlbums(result.data);
             toast.dismiss(toastId);
             console.log(result.data);
         })
@@ -72,6 +87,8 @@ export default function Dashboard() {
                 console.log(result.data);
                 toast.dismiss(toastId);
                 toast.success("Compra realizada com sucesso!");
+
+                setMyAlbums([...myAlbums, result.data]);
             }).catch(error => {
                 console.log(error);
             });
@@ -104,12 +121,16 @@ export default function Dashboard() {
                                 <>
                                     <h1 className="text-white font-bold text-4xl text-center sm:text-left">Resultado da busca:</h1>
                                     <div id="albums" className="flex flex-wrap justify-center mt-4 gap-4">
-                                        {albums?.map((album, i) => (
-                                            <Modal onClick={(e) => handleSale(e, album)} album={album}>
-                                                <Card key={i} name={album.name || ''} price={album.value || 0} backgroundImage={album.images?.[0].url} />
-                                            </Modal>
+                                        {albums?.map((album, i) => {
+                                            const alreadyHave = myAlbums.some(myAlbum => myAlbum.idSpotify === album.id);
 
-                                        ))}
+                                            return (
+                                                <Modal onClick={(e) => handleSale(e, album)} album={album} key={i} disabled={alreadyHave}>
+                                                    <Card name={album.name || ''} price={album.value || 0} backgroundImage={album.images?.[0].url} />
+                                                </Modal>
+                                            );
+                                        })}
+
                                     </div>
 
                                 </>
@@ -117,13 +138,17 @@ export default function Dashboard() {
                                 <>
                                     <h1 className="text-white font-bold text-4xl text-center sm:text-left">Trends</h1>
                                     <div id="albums" className="carousel left-0 flex items-center mt-4 gap-4">
-                                        {albums?.map((album, i) => (
-                                            <Modal onClick={(e) => handleSale(e, album)} album={album} key={i}>
-                                                <div style={{ width: `${100 / albums.length}%` }}>
-                                                    <Card name={album.name || ''} price={album.value || 0} backgroundImage={album.images?.[0].url} />
-                                                </div>
-                                            </Modal>
-                                        ))}
+                                        {albums?.map((album, i) => {
+                                            const alreadyHave = myAlbums.some(myAlbum => myAlbum.idSpotify === album.id);
+
+                                            return (
+                                                <Modal onClick={(e) => handleSale(e, album)} album={album} key={i} disabled={alreadyHave}>
+                                                    <div style={{ width: `${100 / albums.length}%` }}>
+                                                        <Card name={album.name || ''} price={album.value || 0} backgroundImage={album.images?.[0].url} />
+                                                    </div>
+                                                </Modal>
+                                            );
+                                        })}
                                     </div>
                                 </>
                             }

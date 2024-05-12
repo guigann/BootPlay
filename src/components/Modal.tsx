@@ -7,10 +7,11 @@ import spotify_logo from '../assets/imgs/spotify_logo.png';
 interface Props {
     children: React.ReactNode;
     album: AlbumModel;
+    disabled: boolean;
     onClick: React.MouseEventHandler<HTMLElement>;
 }
 
-export default function Modal({ children, album, onClick }: Props) {
+export default function Modal({ children, album, disabled, onClick }: Props) {
     return (
         <Dialog>
             <DialogTrigger>
@@ -42,7 +43,13 @@ export default function Modal({ children, album, onClick }: Props) {
                     </DialogDescription>
 
                     <DialogFooter className='w-full pb-2'>
-                        <Button onClick={onClick} bg_color="bg-[#FBBC05]" size="w-full sm:w-full h-[40px] sm:h-[40px] text-[2vw] sm:text-base" className="hover:bg-gradient-to-r focus:ring-4 focus:outline-none focus:ring-[#fae29b] dark:focus:ring-[#FBBC05]" type="submit">Comprar</Button>
+
+                        {disabled ?
+                            <Button disabled bg_color="bg-[#9c884f]" size="w-full sm:w-full h-[40px] sm:h-[40px] text-[2vw] sm:text-base" className="hover:bg-gradient-to-r focus:ring-4 focus:outline-none focus:ring-[#fae29b] dark:focus:ring-[#FBBC05]" type="submit">Você já possui esse album!</Button>
+                            :
+                            <Button onClick={onClick} bg_color="bg-[#FBBC05]" size="w-full sm:w-full h-[40px] sm:h-[40px] text-[2vw] sm:text-base" className="hover:bg-gradient-to-r focus:ring-4 focus:outline-none focus:ring-[#fae29b] dark:focus:ring-[#FBBC05]" type="submit">Comprar</Button>
+                        }
+
                     </DialogFooter>
 
                 </div>
