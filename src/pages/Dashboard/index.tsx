@@ -32,6 +32,11 @@ export default function Dashboard() {
         event.preventDefault();
         const toastId = toast.loading("Carregando...");
 
+        if (!search) {
+            setIsSearching(false);
+            return;
+        }
+
         integration_api.defaults.headers.common.Authorization = token;
         await integration_api.get(`/albums/all?searchText=${search}`)
             .then(result => {
@@ -90,11 +95,11 @@ export default function Dashboard() {
                 </div>
 
                 <main className="relative h-fit bg-gradient-to-b from-transparent from-0 to-[rgba(25,24,31,1)] to-[30px]">
-                    <div id="content" className="flex flex-col justify-center items-center inset-0 py-20" >
+                    <div id="content" className="flex flex-col justify-center items-center inset-0 py-16" >
 
                         <SearchBar onClick={handleSearch} onChange={e => setSearch(e.target.value)} />
 
-                        <div id="cards" className="mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-32 max-w-screen-lg w-full overflow-hidden">
+                        <div id="cards" className="my-2 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-32 max-w-screen-lg w-full overflow-hidden">
                             {isSearching ?
                                 <>
                                     <h1 className="text-white font-bold text-4xl text-center sm:text-left">Resultado da busca:</h1>
