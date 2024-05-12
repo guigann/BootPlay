@@ -21,9 +21,14 @@ export default function Login() {
             toast.dismiss(toastId);
             toast.success("Login realizado com sucesso!");
             _navigate('/dashboard')
-        }).catch(() => {
+        }).catch((error) => {
             toast.dismiss(toastId);
-            toast.error("Erro ao realizar login!");
+            if (error.code == 'ERR_BAD_REQUEST') {
+                toast.error("Email ou senha inválido!");
+            } else
+                toast.error("Erro ao realizar login!");
+
+            console.log(error)
         })
 
     }
