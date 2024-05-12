@@ -1,29 +1,18 @@
-import { user_api } from "@/services/ApiService";
 import logo from "../assets/icons/logo.svg"
 import user from "../assets/imgs/user.png"
 import Button from './Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { useAuth } from '@/hooks/UseAuth';
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from "react";
 import { Wallet } from "@/model/Wallet";
 
 interface Props {
     auth?: boolean;
+    wallet?: Wallet
 }
 
-export default function NavBar({ auth }: Props) {
-    const { name, token, logout } = useAuth();
-    const [wallet, setWallet] = useState<Wallet>()
-
-    useEffect(() => {
-        if (auth) {
-            user_api.defaults.headers.common.Authorization = token;
-            user_api.get('/wallet').then((result) => {
-                setWallet(result.data);
-            })
-        }
-    }, [])
+export default function NavBar({ auth, wallet }: Props) {
+    const { name, logout } = useAuth();
 
     const getNav = () => {
         if (auth) {

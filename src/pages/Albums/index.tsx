@@ -1,7 +1,7 @@
 import Card from '@/components/Card';
 import InfoCard from '@/components/InfoCard';
 import NavBar from '@/components/NavBar'
-import { integration_api } from '@/services/ApiService';
+import { integration_api, user_api } from '@/services/ApiService';
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import file_video from '../../assets/icons/file-video.svg'
@@ -9,10 +9,12 @@ import dollar_sign from '../../assets/icons/dollar-sign.svg'
 import Footer from '@/components/Footer';
 import { useAuth } from '@/hooks/UseAuth';
 import { Album } from '@/model/Album';
+import { Wallet } from '@/model/Wallet';
 
 export default function Albums() {
     const { isAuthenticated, token } = useAuth();
     const [albums, setAlbums] = useState<Album[]>([]);
+    const [wallet, setWallet] = useState<Wallet>()
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -27,6 +29,13 @@ export default function Albums() {
         }
     }, [isAuthenticated])
 
+    useEffect(() => {
+        user_api.defaults.headers.common.Authorization = token;
+        user_api.get('/wallet').then((result) => {
+            setWallet(result.data);
+        })
+    }, [albums])
+
 
     const calculateTotalValue = () => {
         return albums.reduce((total, album) => total + (album.value || 0), 0); // Somando os valores dos álbuns
@@ -34,8 +43,8 @@ export default function Albums() {
 
     return (
         <>
-            <NavBar auth />
-            <main className='h-fit w-full'>
+            <NavBar auth wallet={wallet} />
+            <main className='min-h-screen h-fit w-full'>
                 <div id="content" className="flex flex-col justify-center m-20 gap-4" >
                     <div id="info" className='flex flex-col justify-start items-start gap-4'>
                         <h1 className="text-white font-bold text-4xl text-center sm:text-left">Meus Discos</h1>

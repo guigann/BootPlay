@@ -4,19 +4,22 @@ import Footer from '../../components/Footer'
 import banner from '../../assets/imgs/banner.jpeg'
 import SearchBar from '../../components/SearchBar'
 import Card from '../../components/Card'
-import { integration_api } from '../../services/ApiService'
+import { integration_api, user_api } from '../../services/ApiService'
 import { AlbumModel } from '../../model/AlbumModel'
 import toast from 'react-hot-toast'
 import './carousel.css'
 import Modal from '@/components/Modal'
 import { useAuth } from '@/hooks/UseAuth'
 import { Album } from '@/model/Album'
+import { Wallet } from '@/model/Wallet'
 
 export default function Dashboard() {
     const { token, id, email, password } = useAuth();
 
     const [albums, setAlbums] = useState<AlbumModel[]>([]);
     const [myAlbums, setMyAlbums] = useState<Album[]>([]);
+
+    const [wallet, setWallet] = useState<Wallet>()
 
     const [search, setSearch] = useState<string>();
     const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -42,6 +45,13 @@ export default function Dashboard() {
             console.log(result.data);
         })
     }, [])
+
+    useEffect(() => {
+        user_api.defaults.headers.common.Authorization = token;
+        user_api.get('/wallet').then((result) => {
+            setWallet(result.data);
+        })
+    }, [myAlbums])
 
     async function handleSearch(event: FormEvent) {
         event.preventDefault();
@@ -97,7 +107,7 @@ export default function Dashboard() {
     return (
         <>
             <div className="relative flex flex-col">
-                <NavBar auth />
+                <NavBar auth wallet={wallet} />
                 <header className="fixed flex flex-col justify-center items-center h-screen w-screen bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${banner})` }}>
                     <div className='h-screen w-screen backdrop-brightness-50'></div>
                 </header>
