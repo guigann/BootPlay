@@ -42,9 +42,9 @@ export default function Albums() {
     }
 
     return (
-        <>
+        <div className='flex flex-col-reverse min-h-screen max-h-fit'>
             <NavBar auth wallet={wallet} />
-            <main className='min-h-screen h-fit w-full'>
+            <main className='grow w-full mb-10'>
                 <div id="content" className="flex flex-col justify-center m-20 gap-4" >
                     <div id="info" className='flex flex-col justify-start items-start gap-4'>
                         <h1 className="text-white font-bold text-4xl text-center sm:text-left">Meus Discos</h1>
@@ -54,8 +54,8 @@ export default function Albums() {
                         </div>
                     </div>
 
-                    <div id="cards" className=" max-w-screen-lg w-full overflow-hidden">
-                        <div id="albums" className="flex flex-wrap flexmt-8 gap-4">
+                    <div id="cards" className="m-auto max-w-screen-lg w-full overflow-hidden">
+                        <div id="albums" className="flex flex-wrap mt-4 gap-4">
                             {(albums.length) ?
                                 albums?.map((album, i) => (
                                     <Card key={i} name={album.name || ''} price={album.value || 0} backgroundImage={album.imageUrl || ''} />
@@ -67,6 +67,6 @@ export default function Albums() {
                 </div>
             </main>
             <Footer />
-        </>
+        </div>
     )
 }
