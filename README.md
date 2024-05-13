@@ -14,7 +14,7 @@ This system was developed during the full-stack bootcamp offered by SysMap Solut
 ### How to Run
 1. Clone the repository
 ```
-git clone https://github.com/bc-fullstack-04/guilherme-campos-backend.git
+git clone https://github.com/bc-fullstack-04/guilherme-campos-frontend.git
 ```
 2. Ensure that the backend present in the docker-compose is running
 ```
