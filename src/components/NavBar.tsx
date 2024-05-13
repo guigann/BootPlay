@@ -95,28 +95,4 @@ export default function NavBar({ auth, wallet }: Props) {
         </nav>
     );
 
-    // function formatLastUpdate(dateString: string) {
-    //     const currentDate = new Date();
-    //     const lastUpdateDate = new Date(dateString);
-
-    //     const timeDiff = currentDate.getTime() - lastUpdateDate.getTime();
-    //     const secondsDiff = timeDiff / 1000;
-    //     const minutesDiff = secondsDiff / 60;
-    //     const hoursDiff = minutesDiff / 60;
-    //     const daysDiff = hoursDiff / 24;
-    //     const monthsDiff = daysDiff / 30;
-
-    //     if (daysDiff < 1) {
-    //         if (hoursDiff < 1) {
-    //             return `Atualizada há ${Math.floor(minutesDiff)} minutos`;
-    //         } else {
-    //             return `Atualizada há ${Math.floor(hoursDiff)} horas`;
-    //         }
-    //     } else if (monthsDiff < 1) {
-    //         return `Atualizada há ${Math.floor(daysDiff)} dias`;
-    //     } else {
-    //         return `Atualizada há ${Math.floor(monthsDiff)} meses`;
-    //     }
-    // }
-
 }

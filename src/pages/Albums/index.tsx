@@ -24,7 +24,6 @@ export default function Albums() {
             integration_api.get('/albums/my-collection').then((result) => {
                 setAlbums(result.data);
                 toast.dismiss(toastId);
-                console.log(result.data);
             })
         }
     }, [isAuthenticated])
@@ -38,7 +37,7 @@ export default function Albums() {
 
 
     const calculateTotalValue = () => {
-        return albums.reduce((total, album) => total + (album.value || 0), 0); // Somando os valores dos álbuns
+        return albums.reduce((total, album) => total + (album.value || 0), 0);
     }
 
     return (
@@ -48,7 +47,7 @@ export default function Albums() {
                 <div id="content" className="flex flex-col justify-center m-20 gap-4" >
                     <div id="info" className='flex flex-col justify-start items-start gap-4'>
                         <h1 className="text-white font-bold text-4xl text-center sm:text-left">Meus Discos</h1>
-                        <div id="infoCards" className='flex flex-row gap-4'>
+                        <div id="infoCards" className='flex flex-row flex-wrap gap-4'>
                             <InfoCard icon={file_video} title='Total de Albums' info={`${albums.length}`} />
                             <InfoCard icon={dollar_sign} title='Valor Investido' info={`R$ ${(calculateTotalValue().toFixed(2)).toString().replace('.', ',')}`} />
                         </div>

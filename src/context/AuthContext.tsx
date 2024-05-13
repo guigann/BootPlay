@@ -24,16 +24,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     useEffect(() => {
         const storedData = localStorage.getItem('@Auth.Data');
         const storedToken = localStorage.getItem('@Auth.Token');
-        console.log("1")
         if (storedData && storedToken) {
             const data: UserModel = JSON.parse(storedData);
             const token: string = JSON.parse(storedToken);
-            console.log("2")
             if (data.id && token) {
                 setIsAuthenticated(true);
                 setUserData(data);
                 setToken(`Basic ${token}`);
-                console.log("3")
             }
         }
     }, []);

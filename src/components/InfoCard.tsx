@@ -14,9 +14,9 @@ export default function InfoCard({ icon, title, info }: Props) {
                     </div>
 
                     <div className="text-black font-semibold">
-                        <span className="text-center text-lg">{title}</span>
+                        <span className="text-center text-base sm:text-lg">{title}</span>
                         <div>
-                            <span className='text-2xl'>{info}</span>
+                            <span className='text-xl sm:text-2xl'>{info}</span>
                         </div>
                     </div>
                 </div>

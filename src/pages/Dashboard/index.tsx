@@ -31,7 +31,6 @@ export default function Dashboard() {
         integration_api.get('/albums/all?searchText=Rock').then((result) => {
             setAlbums(result.data);
             toast.dismiss(toastId);
-            console.log(result.data);
         })
     }, [])
 
@@ -42,7 +41,6 @@ export default function Dashboard() {
         integration_api.get('/albums/my-collection').then((result) => {
             setMyAlbums(result.data);
             toast.dismiss(toastId);
-            console.log(result.data);
         })
     }, [])
 
@@ -66,7 +64,6 @@ export default function Dashboard() {
         await integration_api.get(`/albums/all?searchText=${search}`)
             .then(result => {
                 setAlbums(result.data);
-                console.log(result.data);
                 setIsSearching(true);
                 toast.dismiss(toastId);
             }).catch(error => {
@@ -94,7 +91,6 @@ export default function Dashboard() {
         integration_api.defaults.headers.common.Authorization = token;
         await integration_api.post('/albums/sale', data)
             .then(result => {
-                console.log(result.data);
                 toast.dismiss(toastId);
                 toast.success("Compra realizada com sucesso!");
 

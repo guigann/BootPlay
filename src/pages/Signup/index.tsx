@@ -58,10 +58,7 @@ export default function Signup() {
             password
         };
 
-        console.log(data);
-
-        await user_api.post("/users/create", data).then((result) => {
-            console.log(result.data);
+        await user_api.post("/users/create", data).then(() => {
             toast.dismiss(toastId);
             toast.success("Conta criada com sucesso!");
             setLoading(false);
