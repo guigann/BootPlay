@@ -1,6 +1,4 @@
-# Frontend Project - Guilherme Campos de Melo
-
-## Albums E-Commerce based on Spotify API
+# Albums E-Commerce based on Spotify API
 
 ### Description
 This system was developed during the full-stack bootcamp offered by SysMap Solutions. It offers a comprehensive solution for managing album sales, complete with a loyalty points system.
@@ -14,7 +12,7 @@ This system was developed during the full-stack bootcamp offered by SysMap Solut
 ### How to Run
 1. Clone the repository
 ```
-git clone https://github.com/bc-fullstack-04/guilherme-campos-frontend.git
+git clone https://github.com/guigann/BootPlay.git
 ```
 2. Ensure that the backend present in the docker-compose is running
 ```
@@ -28,4 +26,4 @@ npm install
 npm run dev
 ```
 
-##### [Backend Repository](https://github.com/bc-fullstack-04/guilherme-campos-backend/)
+### [Backend Repository](https://github.com/guigann/bootplay-backend)
