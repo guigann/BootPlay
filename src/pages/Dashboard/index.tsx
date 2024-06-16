@@ -28,7 +28,7 @@ export default function Dashboard() {
         const toastId = toast.loading("Carregando...");
 
         integration_api.defaults.headers.common.Authorization = token;
-        integration_api.get('/albums/all?searchText=Rock').then((result) => {
+        integration_api.get('/albums/all?search=Rock').then((result) => {
             setAlbums(result.data);
             toast.dismiss(toastId);
         })
@@ -61,7 +61,7 @@ export default function Dashboard() {
         }
 
         integration_api.defaults.headers.common.Authorization = token;
-        await integration_api.get(`/albums/all?searchText=${search}`)
+        await integration_api.get(`/albums/all?search=${search}`)
             .then(result => {
                 setAlbums(result.data);
                 setIsSearching(true);
